@@ -3,13 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "vue";
 import { PlayType } from "../helpers/PlayType.ts";
 import Slider from "./Slider.vue";
-
-const songs = import.meta.glob("../songs/*.xml", { eager: true, as: "url" });
-
-console.log(songs);
+import SongPicker from "./SongPicker.vue";
 
 const isPlaying = ref(false);
 const playType = ref(PlayType.AutoPlay);
+const song = ref<any>("");
 
 function play() {
   isPlaying.value = true;
@@ -24,17 +22,20 @@ function pause() {
   <div id="header">
     <div>
       <button v-if="isPlaying" @click="pause">
-        <font-awesome-icon icon="fa-regular fa-pause-circle" />
+        <font-awesome-icon icon="fa-pause-circle" />
       </button>
       <button v-else @click="play">
-        <font-awesome-icon icon="fa-regular fa-play-circle" />
+        <font-awesome-icon icon="fa-play-circle" />
       </button>
     </div>
-    <div>title</div>
+    <div>
+      <span>{{ song?.name ?? song }}</span>
+      <SongPicker @change="(s: string) => (song = s)" />
+    </div>
     <div>
       <Slider
-        left-icon="fa-regular fa-user"
-        right-icon="fa-regular fa-computer"
+        left-icon="fa-user"
+        right-icon="fa-computer"
         :value="playType"
         @change="(x: PlayType) => (playType = x)"
       />
@@ -58,12 +59,5 @@ function pause() {
     flex: 1;
     text-align: center;
   }
-}
-
-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
 }
 </style>
