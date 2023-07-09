@@ -1,23 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { OpenSheetMusicDisplay } from "opensheetmusicdisplay";
 import { onMounted, ref } from "vue";
-import song from "../assets/MozaVeilSample.xml";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-const container = ref();
+const sheetMusic = ref<OpenSheetMusicDisplay>();
 
-onMounted(() => {
-  console.log(song);
-  const osmd = new OpenSheetMusicDisplay(container.value, {
+onMounted(async () => {
+  sheetMusic.value = new OpenSheetMusicDisplay("sheet-music-container", {
     autoResize: true,
     backend: "svg",
     drawTitle: true,
   });
-  osmd.load(song).then(() => osmd.render());
+  await sheetMusic.value.load("/songs/MozaVeilSample.xml");
+  sheetMusic.value.render();
 });
 </script>
 
 <template>
-  <div id="sheet-music-container" ref="container" />
+  <div id="sheet-music-container" />
 </template>
 
 <style scoped>

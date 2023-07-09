@@ -13,6 +13,7 @@
     "@fortawesome/pro-regular-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "opensheetmusicdisplay": "^1.8.0",
+    "sass": "^1.63.6",
     "vue": "^3.3.4"
   },
   "devDependencies": {
