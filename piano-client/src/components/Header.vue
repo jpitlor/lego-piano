@@ -4,10 +4,10 @@ import { ref } from "vue";
 import { PlayType } from "../helpers/PlayType.ts";
 import Slider from "./Slider.vue";
 import SongPicker from "./SongPicker.vue";
+import { store } from "../store.ts";
 
 const isPlaying = ref(false);
 const playType = ref(PlayType.AutoPlay);
-const song = ref<any>("");
 
 function play() {
   isPlaying.value = true;
@@ -29,8 +29,8 @@ function pause() {
       </button>
     </div>
     <div>
-      <span>{{ song?.name ?? song }}</span>
-      <SongPicker @change="(s: string) => (song = s)" />
+      <span>{{ store.title }}</span>
+      <SongPicker @change="(s: string) => (store.file = s)" />
     </div>
     <div>
       <Slider
@@ -48,11 +48,6 @@ function pause() {
   display: flex;
   flex-direction: row;
   padding: 1rem;
-  right: 0;
-  left: 0;
-  top: 0;
-  position: absolute;
-  z-index: 999;
   border-bottom: 1px solid black;
 
   :nth-child(2) {
