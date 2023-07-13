@@ -1,0 +1,1 @@
+Dependencies: https://github.com/Theldus/wsServer
